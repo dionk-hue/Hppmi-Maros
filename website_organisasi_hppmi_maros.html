@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPPMI Maros - Himpunan Pemuda Pelajar Mahasiswa Indonesia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        hppmi: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-hppmi-600 selection:text-white">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- =====================================================================
+         MAIN PUBLIC WEBSITE VIEW
+    ====================================================================== -->
+    <div id="public-view" class="block">
+        
+        <!-- Top Info Bar -->
+        <div class="bg-hppmi-900 text-hppmi-100 text-xs py-2 px-4 border-b border-hppmi-800">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-gold-400"></i>
+                        Sekretariat PP: Jl. Cempaka No. 89, Kab. Maros, Sulawesi Selatan
+                    </span>
+                    <span class="hidden md:flex items-center gap-1.5">
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-gold-400"></i>
+                        sekretariat@hppmimaros.or.id
+                    </span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="realtime-indicator" class="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-emerald-300 bg-hppmi-800/90 px-2.5 py-0.5 rounded-full border border-hppmi-700">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        Sinkron Real-Time
+                    </span>
+                    <span class="text-gold-400 font-medium">"Sipakatau, Sipakalebbi, Sipakainge"</span>
+                    <button onclick="openAdminLogin()" class="ml-2 bg-hppmi-800 hover:bg-hppmi-700 text-white px-2.5 py-1 rounded-md text-xs font-medium transition flex items-center gap-1 border border-hppmi-700">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-gold-400"></i>
+                        Admin Panel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Navigation Bar -->
+        <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Logo & Organization Name -->
+                    <a href="#beranda" class="flex items-center gap-3 group">
+                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform p-1 border border-slate-200">
+                            <!-- Custom SVG Logo Resmi HPPMI Maros -->
+                            <svg class="w-full h-full" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Outer Shield Border -->
+                                <path d="M100 212C100 212 184 166 190 54C162 48 134 32 100 10C66 32 38 48 10 54C16 166 100 212 100 212Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="6" stroke-linejoin="round"/>
+                                <!-- Inner Green Shield -->
+                                <path d="M100 200C100 200 174 158 180 61C154 55 129 41 100 21C71 41 46 55 20 61C26 158 100 200 100 200Z" fill="#048848" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                <!-- Open Book -->
+                                <path d="M56 54C74 47 92 54 100 63C108 54 126 47 144 54V92C126 85 108 92 100 101C92 92 74 85 56 92V54Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M100 63V101" stroke="#1E293B" stroke-width="3.5"/>
+                                <path d="M54 97C73 90 91 96 100 105C109 96 127 90 146 97" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                                <!-- Left Supporting Hand & Arm -->
+                                <path d="M77 166L84 114C84 111 79 110 73 110L53 108C49 108 49 103 54 103L81 104C89 104 95 109 96 117L98 166H77Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                <!-- Right Supporting Hand & Arm -->
+                                <path d="M123 166L116 114C116 111 121 110 127 110L147 108C151 108 151 103 146 103L119 104C111 104 105 109 104 117L102 166H123Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                <!-- Aksara Lontara Motif -->
+                                <path d="M62 180L67 174L72 180M76 180L81 174L86 180M94 180L99 174L104 180M108 180C111 174 115 174 118 180M122 180L127 174L132 180L137 174" stroke="#1E293B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                        <span class="font-heading font-extrabold text-xl tracking-tight text-hppmi-900 block leading-none">HPPMI MAROS</span>
+                        <span class="text-[11px] font-medium text-slate-500 tracking-wider uppercase block mt-1">Pimpinan Pusat • Himpunan Pemuda Pelajar Mahasiswa Indonesia</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                    <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
+                        <a href="#beranda" class="hover:text-hppmi-700 transition">Beranda</a>
+                        <a href="#tentang" class="hover:text-hppmi-700 transition">Profil & Visi</a>
+                        <a href="#berita" class="hover:text-hppmi-700 transition">Berita & Opini</a>
+                        <a href="#agenda" class="hover:text-hppmi-700 transition">Agenda</a>
+                        <a href="#struktur" class="hover:text-hppmi-700 transition">Pengurus</a>
+                        <a href="#komisariat" class="hover:text-hppmi-700 transition">Komisariat</a>
+                    </nav>
+
+                    <!-- CTA & Mobile Toggle -->
+                    <div class="flex items-center gap-3">
+                        <button onclick="openJoinModal()" class="hidden sm:inline-flex items-center gap-2 bg-hppmi-700 hover:bg-hppmi-800 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-sm hover:shadow transition">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i>
+                            Gabung Kader
+                        </button>
+                        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+                <a href="#beranda" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Beranda</a>
+                <a href="#tentang" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Profil & Visi Misi</a>
+                <a href="#berita" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Berita & Kajian</a>
+                <a href="#agenda" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Agenda Kegiatan</a>
+                <a href="#struktur" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Struktur Pengurus</a>
+                <a href="#komisariat" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-700 hover:bg-hppmi-50 hover:text-hppmi-700">Komisariat</a>
+                <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                    <button onclick="toggleMobileMenu(); openJoinModal()" class="w-full bg-hppmi-700 text-white py-2.5 rounded-xl font-semibold text-center">Daftar Kader Baru</button>
+                    <button onclick="toggleMobileMenu(); openAdminLogin()" class="w-full bg-slate-800 text-white py-2.5 rounded-xl font-semibold text-center">Masuk Admin Panel</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="beranda" class="relative bg-gradient-to-br from-hppmi-900 via-hppmi-800 to-slate-900 text-white overflow-hidden">
+            <!-- Decorative Pattern -->
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fbbf24 1px, transparent 1px); background-size: 28px 28px;"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-hppmi-800/80 border border-hppmi-600/50 text-gold-400 text-xs font-semibold tracking-wide uppercase">
+                        <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                        Pimpinan Pusat HPPMI Maros • Berdiri Sejak 1963 (63 Tahun Mengabdi)
+                    </div>
+                    <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                        Wadah Intelektual &amp; Pergerakan Pemuda <span class="text-gold-400">Butta Salewangang</span>
+                    </h1>
+                    <p class="text-hppmi-100 text-base sm:text-lg leading-relaxed max-w-2xl">
+                        Menghimpun 23 jaringan komisariat kecamatan, perguruan tinggi, komisariat pelajar, dan lembaga otonom asal Kabupaten Maros untuk melahirkan pemimpin masa depan yang berintegritas.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <button onclick="openJoinModal()" class="bg-gold-500 hover:bg-gold-400 text-slate-900 font-bold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            Daftar Kader Baru
+                        </button>
+                        <a href="#berita" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white font-semibold px-6 py-3.5 rounded-xl transition flex items-center gap-2">
+                            <i data-lucide="newspaper" class="w-5 h-5"></i>
+                            Baca Berita Terkini
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-hppmi-700/60 max-w-lg">
+                        <div>
+                            <div class="font-heading text-2xl sm:text-3xl font-extrabold text-gold-400" id="stat-komisariat">23</div>
+                            <div class="text-xs text-hppmi-200 mt-0.5">Komisariat &amp; Lem. Otonom</div>
+                        </div>
+                        <div>
+                            <div class="font-heading text-2xl sm:text-3xl font-extrabold text-white" id="stat-kader-terdaftar">1.500+</div>
+                            <div class="text-xs text-hppmi-200 mt-0.5">Kader &amp; Alumni Aktif</div>
+                        </div>
+                        <div>
+                            <div class="font-heading text-2xl sm:text-3xl font-extrabold text-gold-400">1963</div>
+                            <div class="text-xs text-hppmi-200 mt-0.5">Tahun Berdiri</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Featured Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl shadow-2xl">
+                            <div class="relative rounded-xl overflow-hidden aspect-[4/3] bg-slate-800">
+                                <img src="https://placehold.co/800x600/064e3b/fbbf24?text=Musyawarah+Besar+%26+Kaderisasi+HPPMI+Maros" alt="Kegiatan HPPMI Maros" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-transparent flex flex-col justify-end p-5">
+                                    <span class="bg-gold-500 text-slate-950 text-[11px] font-bold px-2.5 py-1 rounded-md w-fit mb-2">SOROTAN UTAMA</span>
+                                    <h3 class="font-heading font-bold text-lg text-white leading-snug">Sinergi Pemuda & Mahasiswa Maros Mengawal Pembangunan Berkelanjutan</h3>
+                                    <p class="text-xs text-slate-300 mt-1">Rapat Kerja & Dialog Publik Pengurus Pusat HPPMI Maros</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil, Sejarah & Visi Misi Section -->
+        <section id="tentang" class="py-16 lg:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="text-hppmi-700 font-bold text-xs uppercase tracking-widest">Mengenal Lebih Dekat</span>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Profil &amp; Arah Gerak Organisasi</h2>
+                    <p class="text-slate-600 mt-3 text-sm sm:text-base">HPPMI Maros hadir sebagai kawah candradimuka bagi generasi muda Butta Salewangang dalam menempa kepemimpinan, intelektualitas, dan pengabdian sosial.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-start">
+                    <!-- Sejarah & Filosofi -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 space-y-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-white border border-slate-200 shadow-sm p-1.5 shrink-0">
+                            <svg class="w-full h-full" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 212C100 212 184 166 190 54C162 48 134 32 100 10C66 32 38 48 10 54C16 166 100 212 100 212Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="6" stroke-linejoin="round"/>
+                                <path d="M100 200C100 200 174 158 180 61C154 55 129 41 100 21C71 41 46 55 20 61C26 158 100 200 100 200Z" fill="#048848" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M56 54C74 47 92 54 100 63C108 54 126 47 144 54V92C126 85 108 92 100 101C92 92 74 85 56 92V54Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M100 63V101" stroke="#1E293B" stroke-width="3.5"/>
+                                <path d="M54 97C73 90 91 96 100 105C109 96 127 90 146 97" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                                <path d="M77 166L84 114C84 111 79 110 73 110L53 108C49 108 49 103 54 103L81 104C89 104 95 109 96 117L98 166H77Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                <path d="M123 166L116 114C116 111 121 110 127 110L147 108C151 108 151 103 146 103L119 104C111 104 105 109 104 117L102 166H123Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                <path d="M62 180L67 174L72 180M76 180L81 174L86 180M94 180L99 174L104 180M108 180C111 174 115 174 118 180M122 180L127 174L132 180L137 174" stroke="#1E293B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-hppmi-700 uppercase tracking-wider">Lambang &amp; Identitas</span>
+                            <h3 class="font-heading text-2xl font-bold text-slate-900">Sejarah &amp; Filosofi Perjuangan</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visi & Misi -->
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-hppmi-800 to-hppmi-900 text-white rounded-2xl p-6 sm:p-8 shadow-lg">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center">
+                                <i data-lucide="compass" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-gold-400">Visi Organisasi</h3>
+                        </div>
+                        <p class="text-hppmi-50 text-sm sm:text-base leading-relaxed font-medium">
+                            "Terwujudnya HPPMI Maros sebagai kawah candradimuka kaderisasi yang unggul, progresif, dan kolaboratif dalam mencetak sumber daya manusia Maros yang berintegritas serta berkontribusi nyata bagi pembangunan Butta Salewangang."
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+                        <h3 class="font-heading text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <i data-lucide="target" class="w-5 h-5 text-hppmi-600"></i>
+                            10 Bidang Gerak &amp; Misi Utama
+                        </h3>
+                        <ul class="space-y-3 text-sm text-slate-600">
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-hppmi-100 text-hppmi-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+                                <span><strong>Kaderisasi &amp; Pendidikan SDM:</strong> Menyelenggarakan Basic Analysis Camp (BAC), Latihan Kader (LK I-III), serta forum literasi INTELIGEN &amp; FIKSI secara berjenjang.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-hppmi-100 text-hppmi-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+                                <span><strong>Pemberdayaan 23 Komisariat &amp; Lembaga Otonom:</strong> Memperkuat konsolidasi seluruh komisariat kecamatan, perguruan tinggi, komisariat pelajar, dan alumni.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-hppmi-100 text-hppmi-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+                                <span><strong>Advokasi, Lingkungan Hidup &amp; Budaya:</strong> Mengawal kebijakan Raperda/Perbup Maros, konservasi ekowisata Geopark, serta tradisi Festival Gema Ramadhan (FGR).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portal Berita, Opini & Publikasi Section -->
+        <section id="berita" class="py-16 lg:py-24 bg-slate-50 border-t border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                    <div>
+                        <span class="text-hppmi-700 font-bold text-xs uppercase tracking-widest">Kabar &amp; Pemikiran Kader</span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Berita, Kajian &amp; Opini</h2>
+                    </div>
+                    
+                    <!-- Search & Category Filter -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="news-search" oninput="renderPublicNews()" placeholder="Cari berita atau kajian..." class="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-hppmi-600 w-full sm:w-64">
+                        </div>
+                        <select id="news-category-filter" onchange="renderPublicNews()" class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-hppmi-600">
+                            <option value="ALL">Semua Kategori</option>
+                            <option value="Kegiatan">Kegiatan Organisasi</option>
+                            <option value="Kajian">Kajian &amp; Advokasi</option>
+                            <option value="Opini">Opini Kader</option>
+                            <option value="Pengumuman">Pengumuman</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic News Grid -->
+                <div id="public-news-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Agenda Kegiatan & Program Kerja -->
+        <section id="agenda" class="py-16 lg:py-24 bg-white border-t border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+                    <div>
+                        <span class="text-hppmi-700 font-bold text-xs uppercase tracking-widest">Kalender Organisasi</span>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Agenda &amp; Program Kerja</h2>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-md">Jadwal pelaksanaan kaderisasi, dialog publik, bakti sosial, dan rapat koordinasi Pengurus Pusat HPPMI Maros.</p>
+                </div>
+
+                <div id="public-agenda-list" class="grid md:grid-cols-2 gap-6">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Struktur Pengurus Pusat -->
+        <section id="struktur" class="py-16 lg:py-24 bg-slate-50 border-t border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-hppmi-700 font-bold text-xs uppercase tracking-widest">Fungsionaris Periode Berjalan</span>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Struktur Pengurus Pusat</h2>
+                    <p class="text-slate-600 text-sm mt-2">Jajaran pimpinan harian yang menakhodai roda organisasi HPPMI Maros.</p>
+                </div>
+
+                <div id="public-leadership-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Direktori Komisariat -->
+        <section id="komisariat" class="py-16 lg:py-24 bg-white border-t border-slate-200/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-hppmi-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden">
+                    <div class="relative z-10 space-y-8">
+                        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                            <div class="space-y-3 max-w-2xl">
+                                <span class="bg-gold-500/20 text-gold-400 text-xs font-bold px-3 py-1 rounded-full">23 JARINGAN CABANG &amp; BASIS</span>
+                                <h2 class="font-heading text-2xl sm:text-3xl font-extrabold">Komisariat Kecamatan, Kampus &amp; Pelajar</h2>
+                                <p class="text-hppmi-100 text-sm leading-relaxed">
+                                    HPPMI Maros memiliki 23 jaringan komisariat yang mencakup 12 Komisariat Kecamatan, 9 Komisariat Perguruan Tinggi, Komisariat Pelajar, serta Lembaga Otonom sebagai ujung tombak kaderisasi.
+                                </p>
+                            </div>
+                            <button onclick="openJoinModal()" class="inline-flex items-center gap-2 bg-gold-500 text-slate-950 font-bold px-5 py-3 rounded-xl text-sm hover:bg-gold-400 transition shrink-0 w-fit">
+                                Daftar Kader Sekarang
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Filter Tab Komisariat -->
+                        <div class="flex flex-wrap gap-2 border-b border-hppmi-800 pb-4">
+                            <button onclick="filterKomisariat('ALL')" id="kom-filter-ALL" class="kom-filter-btn bg-gold-500 text-slate-950 px-4 py-1.5 rounded-lg text-xs font-bold transition">Semua (23)</button>
+                            <button onclick="filterKomisariat('Kampus')" id="kom-filter-Kampus" class="kom-filter-btn bg-hppmi-800 text-hppmi-100 hover:bg-hppmi-700 px-4 py-1.5 rounded-lg text-xs font-semibold transition">Perguruan Tinggi (9)</button>
+                            <button onclick="filterKomisariat('Kecamatan')" id="kom-filter-Kecamatan" class="kom-filter-btn bg-hppmi-800 text-hppmi-100 hover:bg-hppmi-700 px-4 py-1.5 rounded-lg text-xs font-semibold transition">Kecamatan (12)</button>
+                            <button onclick="filterKomisariat('Khusus')" id="kom-filter-Khusus" class="kom-filter-btn bg-hppmi-800 text-hppmi-100 hover:bg-hppmi-700 px-4 py-1.5 rounded-lg text-xs font-semibold transition">Pelajar &amp; Lembaga Otonom (2)</button>
+                        </div>
+
+                        <div id="public-komisariat-grid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm">
+                                <svg class="w-full h-full" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M100 212C100 212 184 166 190 54C162 48 134 32 100 10C66 32 38 48 10 54C16 166 100 212 100 212Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="6" stroke-linejoin="round"/>
+                                    <path d="M100 200C100 200 174 158 180 61C154 55 129 41 100 21C71 41 46 55 20 61C26 158 100 200 100 200Z" fill="#048848" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                    <path d="M56 54C74 47 92 54 100 63C108 54 126 47 144 54V92C126 85 108 92 100 101C92 92 74 85 56 92V54Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                                    <path d="M100 63V101" stroke="#1E293B" stroke-width="3.5"/>
+                                    <path d="M54 97C73 90 91 96 100 105C109 96 127 90 146 97" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                                    <path d="M77 166L84 114C84 111 79 110 73 110L53 108C49 108 49 103 54 103L81 104C89 104 95 109 96 117L98 166H77Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                    <path d="M123 166L116 114C116 111 121 110 127 110L147 108C151 108 151 103 146 103L119 104C111 104 105 109 104 117L102 166H123Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                                    <path d="M62 180L67 174L72 180M76 180L81 174L86 180M94 180L99 174L104 180M108 180C111 174 115 174 118 180M122 180L127 174L132 180L137 174" stroke="#1E293B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="font-heading font-extrabold text-lg text-white">HPPMI MAROS</span>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Himpunan Pemuda Pelajar Mahasiswa Indonesia Maros. Wadah berhimpun, berproses, dan mengabdi untuk kemajuan Butta Salewangang.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-heading font-bold text-white mb-4">Tautan Cepat</h4>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li><a href="#tentang" class="hover:text-gold-400 transition">Sejarah &amp; Visi Misi</a></li>
+                            <li><a href="#berita" class="hover:text-gold-400 transition">Portal Berita &amp; Opini</a></li>
+                            <li><a href="#agenda" class="hover:text-gold-400 transition">Kalender Kegiatan</a></li>
+                            <li><a href="#struktur" class="hover:text-gold-400 transition">Struktur Pengurus</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-heading font-bold text-white mb-4">Layanan Kader</h4>
+                        <ul class="space-y-2.5 text-sm text-slate-400">
+                            <li><button onclick="openJoinModal()" class="hover:text-gold-400 transition text-left">Pendaftaran Kader Baru (LK I)</button></li>
+                            <li><a href="#komisariat" class="hover:text-gold-400 transition">Direktori Komisariat Kampus</a></li>
+                            <li><button onclick="openAdminLogin()" class="hover:text-gold-400 transition text-left">Login Pengurus / Admin Panel</button></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-heading font-bold text-white mb-4">Kontak Sekretariat</h4>
+                        <ul class="space-y-3 text-sm text-slate-400">
+                            <li class="flex items-start gap-2.5">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-gold-400 shrink-0 mt-1"></i>
+                                <span>Sekretariat Pimpinan Pusat HPPMI Maros: Jl. Cempaka No. 89, Kab. Maros, Sulawesi Selatan 90511</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="phone" class="w-4 h-4 text-gold-400 shrink-0"></i>
+                                <span>+62 852-5658-3248</span>
+                            </li>
+                            <li class="flex items-center gap-2.5">
+                                <i data-lucide="mail" class="w-4 h-4 text-gold-400 shrink-0"></i>
+                                <span>sekretariat@hppmimaros.or.id</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                    <p>&copy; 2026 Pimpinan Pusat HPPMI Maros. Hak Cipta Dilindungi Undang-Undang.</p>
+                    <p>Bidang Riset, Humas, Media &amp; Komunikasi PP HPPMI Maros</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =====================================================================
+         ADMIN PANEL VIEW (HIDDEN BY DEFAULT)
+    ====================================================================== -->
+    <div id="admin-view" class="hidden min-h-screen bg-slate-100 flex flex-col lg:flex-row">
+        
+        <!-- Admin Sidebar -->
+        <aside class="w-full lg:w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-white p-1 flex items-center justify-center">
+                        <svg class="w-full h-full" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 212C100 212 184 166 190 54C162 48 134 32 100 10C66 32 38 48 10 54C16 166 100 212 100 212Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="6" stroke-linejoin="round"/>
+                            <path d="M100 200C100 200 174 158 180 61C154 55 129 41 100 21C71 41 46 55 20 61C26 158 100 200 100 200Z" fill="#048848" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                            <path d="M56 54C74 47 92 54 100 63C108 54 126 47 144 54V92C126 85 108 92 100 101C92 92 74 85 56 92V54Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                            <path d="M100 63V101" stroke="#1E293B" stroke-width="3.5"/>
+                            <path d="M54 97C73 90 91 96 100 105C109 96 127 90 146 97" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M77 166L84 114C84 111 79 110 73 110L53 108C49 108 49 103 54 103L81 104C89 104 95 109 96 117L98 166H77Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                            <path d="M123 166L116 114C116 111 121 110 127 110L147 108C151 108 151 103 146 103L119 104C111 104 105 109 104 117L102 166H123Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                            <path d="M62 180L67 174L72 180M76 180L81 174L86 180M94 180L99 174L104 180M108 180C111 174 115 174 118 180M122 180L127 174L132 180L137 174" stroke="#1E293B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-heading font-bold text-white block text-sm">ADMIN PANEL</span>
+                        <span class="text-[11px] text-gold-400">PP HPPMI Maros</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="p-4 space-y-1.5 flex-1">
+                <button onclick="switchAdminTab('dashboard')" id="tab-btn-dashboard" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold bg-hppmi-700 text-white transition">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    Dashboard Ikhtisar
+                </button>
+                <button onclick="switchAdminTab('news')" id="tab-btn-news" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-slate-800 hover:text-white transition">
+                    <i data-lucide="newspaper" class="w-4 h-4"></i>
+                    Kelola Berita &amp; Opini
+                </button>
+                <button onclick="switchAdminTab('agenda')" id="tab-btn-agenda" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-slate-800 hover:text-white transition">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    Kelola Agenda
+                </button>
+                <button onclick="switchAdminTab('members')" id="tab-btn-members" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-slate-800 hover:text-white transition">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    Pendaftar Kader Baru
+                    <span id="badge-pending-members" class="ml-auto bg-gold-500 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+                </button>
+                <button onclick="switchAdminTab('leadership')" id="tab-btn-leadership" class="admin-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-400 hover:bg-slate-800 hover:text-white transition">
+                    <i data-lucide="award" class="w-4 h-4"></i>
+                    Struktur Pengurus
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-slate-800 space-y-2">
+                <button onclick="exitAdminPanel()" class="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white py-2.5 px-4 rounded-xl text-xs font-semibold transition">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Lihat Website Publik
+                </button>
+            </div>
+        </aside>
+
+        <!-- Admin Main Content -->
+        <main class="flex-1 p-6 lg:p-10 overflow-y-auto">
+            
+            <!-- Header Bar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-slate-200">
+                <div>
+                    <h1 id="admin-page-title" class="font-heading text-2xl font-extrabold text-slate-900">Dashboard Ikhtisar</h1>
+                    <p class="text-sm text-slate-500">Sistem Manajemen Konten &amp; Administrasi Real-Time PP HPPMI Maros</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="db-connection-badge" class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                        Database Real-Time Terhubung
+                    </span>
+                </div>
+            </div>
+
+            <!-- TAB 1: DASHBOARD OVERVIEW -->
+            <div id="admin-tab-dashboard" class="admin-tab-content space-y-8">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between text-slate-500 mb-2">
+                            <span class="text-xs font-bold uppercase">Total Berita</span>
+                            <i data-lucide="newspaper" class="w-5 h-5 text-hppmi-600"></i>
+                        </div>
+                        <div id="dash-total-news" class="font-heading text-3xl font-extrabold text-slate-900">0</div>
+                        <p class="text-xs text-slate-400 mt-1">Artikel &amp; kajian terbit</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between text-slate-500 mb-2">
+                            <span class="text-xs font-bold uppercase">Agenda Aktif</span>
+                            <i data-lucide="calendar" class="w-5 h-5 text-gold-500"></i>
+                        </div>
+                        <div id="dash-total-agenda" class="font-heading text-3xl font-extrabold text-slate-900">0</div>
+                        <p class="text-xs text-slate-400 mt-1">Program kerja terjadwal</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between text-slate-500 mb-2">
+                            <span class="text-xs font-bold uppercase">Calon Kader</span>
+                            <i data-lucide="user-plus" class="w-5 h-5 text-blue-600"></i>
+                        </div>
+                        <div id="dash-total-applicants" class="font-heading text-3xl font-extrabold text-slate-900">0</div>
+                        <p class="text-xs text-slate-400 mt-1">Menunggu verifikasi</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between text-slate-500 mb-2">
+                            <span class="text-xs font-bold uppercase">Pengurus Inti</span>
+                            <i data-lucide="award" class="w-5 h-5 text-purple-600"></i>
+                        </div>
+                        <div id="dash-total-leaders" class="font-heading text-3xl font-extrabold text-slate-900">0</div>
+                        <p class="text-xs text-slate-400 mt-1">Ditampilkan di beranda</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="font-heading font-bold text-lg text-slate-900 mb-4">Aksi Cepat Pengurus</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchAdminTab('news'); openNewsFormModal()" class="bg-hppmi-700 hover:bg-hppmi-800 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                            Tulis Berita Baru
+                        </button>
+                        <button onclick="switchAdminTab('agenda')" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition">
+                            <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                            Tambah Agenda Kegiatan
+                        </button>
+                        <button onclick="switchAdminTab('members')" class="bg-gold-500 hover:bg-gold-600 text-slate-950 px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition">
+                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                            Verifikasi Pendaftar Kader
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MANAGE NEWS -->
+            <div id="admin-tab-news" class="admin-tab-content hidden space-y-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-heading font-bold text-lg text-slate-800">Daftar Publikasi Berita &amp; Kajian</h3>
+                    <button onclick="openNewsFormModal()" class="bg-hppmi-700 hover:bg-hppmi-800 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Tambah Berita
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                                    <th class="py-3.5 px-5">Judul Berita</th>
+                                    <th class="py-3.5 px-5">Kategori</th>
+                                    <th class="py-3.5 px-5">Penulis</th>
+                                    <th class="py-3.5 px-5">Tanggal</th>
+                                    <th class="py-3.5 px-5 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-news-table" class="divide-y divide-slate-100 text-sm">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: MANAGE AGENDA -->
+            <div id="admin-tab-agenda" class="admin-tab-content hidden space-y-6">
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <!-- Add Agenda Form -->
+                    <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-4">Tambah Agenda Baru</h3>
+                        <form onsubmit="handleAddAgenda(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Kegiatan</label>
+                                <input type="text" id="agenda-title" required placeholder="Contoh: Latihan Kader I (LK I) Komisariat" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Pelaksanaan</label>
+                                    <input type="date" id="agenda-date" required class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                                    <select id="agenda-status" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                                        <option value="Akan Datang">Akan Datang</option>
+                                        <option value="Pendaftaran Dibuka">Pendaftaran Dibuka</option>
+                                        <option value="Selesai">Selesai</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Lokasi Kegiatan</label>
+                                <input type="text" id="agenda-location" required placeholder="Contoh: Gedung Serbaguna Kab. Maros" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi Singkat</label>
+                                <textarea id="agenda-desc" rows="3" required placeholder="Jelaskan tujuan singkat kegiatan..." class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-hppmi-700 hover:bg-hppmi-800 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                Simpan Agenda
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Agenda List -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <h3 class="font-heading font-bold text-lg text-slate-900">Daftar Agenda Terjadwal</h3>
+                        <div id="admin-agenda-list" class="space-y-3">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: MANAGE CADRE APPLICANTS -->
+            <div id="admin-tab-members" class="admin-tab-content hidden space-y-6">
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900">Data Pendaftar Kader Baru (BAC / LK I)</h3>
+                            <p class="text-xs text-slate-500">Data tersimpan permanen dan diperbarui secara real-time saat ada pendaftar masuk.</p>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                                    <th class="py-3.5 px-5">Nama Lengkap</th>
+                                    <th class="py-3.5 px-5">Asal Kampus / Sekolah</th>
+                                    <th class="py-3.5 px-5">Kecamatan &amp; Komisariat</th>
+                                    <th class="py-3.5 px-5">No. WhatsApp</th>
+                                    <th class="py-3.5 px-5">Status</th>
+                                    <th class="py-3.5 px-5 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-members-table" class="divide-y divide-slate-100 text-sm">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: MANAGE LEADERSHIP -->
+            <div id="admin-tab-leadership" class="admin-tab-content hidden space-y-6">
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                        <h3 class="font-heading font-bold text-lg text-slate-900 mb-4">Tambah Pengurus</h3>
+                        <form onsubmit="handleAddLeader(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap &amp; Gelar</label>
+                                <input type="text" id="leader-name" required placeholder="Contoh: Muh. Akmal Hidayat, S.H." class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Jabatan</label>
+                                <input type="text" id="leader-role" required placeholder="Contoh: Ketua Umum" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Asal Komisariat / Kampus</label>
+                                <input type="text" id="leader-campus" required placeholder="Contoh: Komisariat Unhas" class="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            </div>
+                            <button type="submit" class="w-full bg-hppmi-700 hover:bg-hppmi-800 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+                                Tambahkan ke Struktur
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="lg:col-span-8 grid sm:grid-cols-2 gap-4" id="admin-leadership-list">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- =====================================================================
+         MODALS (ARTICLE READER, ADMIN LOGIN, JOIN FORM, NEWS EDITOR)
+    ====================================================================== -->
+
+    <!-- 1. Modal Baca Artikel Lengkap -->
+    <div id="article-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="relative h-56 sm:h-72 bg-slate-800">
+                <img id="modal-article-img" src="" alt="Cover Berita" class="w-full h-full object-cover">
+                <button onclick="closeModal('article-modal')" class="absolute top-4 right-4 bg-slate-900/70 hover:bg-slate-900 text-white p-2 rounded-full transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <span id="modal-article-cat" class="absolute bottom-4 left-6 bg-hppmi-600 text-white text-xs font-bold px-3 py-1 rounded-lg">Kategori</span>
+            </div>
+            <div class="p-6 sm:p-8 space-y-4">
+                <div class="flex items-center gap-4 text-xs text-slate-500">
+                    <span id="modal-article-date" class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Tanggal</span>
+                    <span id="modal-article-author" class="flex items-center gap-1"><i data-lucide="user" class="w-3.5 h-3.5"></i> Penulis</span>
+                </div>
+                <h2 id="modal-article-title" class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">Judul Berita</h2>
+                <div id="modal-article-body" class="text-slate-600 text-sm sm:text-base leading-relaxed space-y-4 pt-2 border-t border-slate-100 whitespace-pre-line">
+                    Isi artikel...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal Login Admin -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-hppmi-100 text-hppmi-700 flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-900">Login Admin Panel</h3>
+                </div>
+                <button onclick="closeModal('admin-login-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+                    <strong>Info Demo:</strong> Gunakan username <code class="font-bold">admin</code> dan password <code class="font-bold">hppmi1963</code> untuk masuk.
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Username Pengurus</label>
+                    <input type="text" id="login-username" value="admin" required class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Kata Sandi</label>
+                    <input type="password" id="login-password" value="hppmi1963" required class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-hppmi-700 hover:bg-hppmi-800 text-white font-bold py-3 rounded-xl text-sm shadow-md transition">
+                    Masuk ke Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Modal Pendaftaran Kader Baru -->
+    <div id="join-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <span class="text-xs font-bold text-hppmi-700 uppercase">Rekrutmen Terbuka • Tersimpan Real-Time</span>
+                    <h3 class="font-heading font-extrabold text-xl text-slate-900">Pendaftaran Kader Baru HPPMI Maros</h3>
+                </div>
+                <button onclick="closeModal('join-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500 mb-5">Data Anda langsung tersimpan permanen di basis data Pimpinan Pusat HPPMI Maros untuk jadwal Basic Analysis Camp (BAC) / Latihan Kader I (LK I).</p>
+            
+            <form onsubmit="handleJoinSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="join-name" required placeholder="Masukkan nama lengkap sesuai KTP/KTM/Kartu Pelajar" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                </div>
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Asal Kampus / Sekolah</label>
+                        <input type="text" id="join-campus" required placeholder="Contoh: Unhas / SMAN 1 Maros" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Kecamatan Asal di Maros</label>
+                        <select id="join-district" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            <option value="Turikale">Turikale</option>
+                            <option value="Mandai">Mandai</option>
+                            <option value="Marusu">Marusu</option>
+                            <option value="Bontoa">Bontoa</option>
+                            <option value="Lau">Lau</option>
+                            <option value="Maros Baru">Maros Baru</option>
+                            <option value="Tanralili">Tanralili</option>
+                            <option value="Tompobulu">Tompobulu</option>
+                            <option value="Moncongloe">Moncongloe</option>
+                            <option value="Simbang">Simbang</option>
+                            <option value="Bantimurung">Bantimurung</option>
+                            <option value="Cenrana">Cenrana</option>
+                            <option value="Camba">Camba</option>
+                            <option value="Mallawa">Mallawa</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilihan Komisariat Tujuan</label>
+                    <select id="join-komisariat" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                        <option value="Komisariat Unhas">Komisariat Universitas Hasanuddin (Unhas)</option>
+                        <option value="Komisariat UNM">Komisariat Universitas Negeri Makassar (UNM)</option>
+                        <option value="Komisariat UINAM">Komisariat UIN Alauddin Makassar (UINAM)</option>
+                        <option value="Komisariat UMI">Komisariat Universitas Muslim Indonesia (UMI)</option>
+                        <option value="Komisariat Unismuh">Komisariat Univ. Muhammadiyah Makassar</option>
+                        <option value="Komisariat UIM">Komisariat Universitas Islam Makassar (UIM)</option>
+                        <option value="Komisariat PNUP">Komisariat Politeknik Negeri Ujung Pandang</option>
+                        <option value="Komisariat Pelajar">Komisariat Pelajar Kabupaten Maros</option>
+                        <option value="Komisariat Kecamatan">Komisariat Kecamatan Sesuai Domisili</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Nomor WhatsApp Aktif</label>
+                    <input type="tel" id="join-phone" required placeholder="Contoh: 081234567890" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Motivasi Bergabung</label>
+                    <textarea id="join-motivation" rows="2" required placeholder="Ceritakan alasan Anda ingin berproses di HPPMI Maros..." class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none"></textarea>
+                </div>
+                <div class="pt-1 space-y-2">
+                    <button type="submit" id="join-submit-btn" class="w-full bg-hppmi-700 hover:bg-hppmi-800 text-white font-bold py-3 rounded-xl text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i data-lucide="database" class="w-4 h-4"></i>
+                        Simpan ke Database &amp; Konfirmasi WhatsApp
+                    </button>
+                    <p class="text-[11px] text-center text-slate-400">Otomatis tersimpan ke basis data pusat &amp; mengarahkan ke WhatsApp panitia kaderisasi.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. Modal Tambah / Edit Berita (Admin) -->
+    <div id="news-form-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-5">
+                <h3 id="news-form-modal-title" class="font-heading font-extrabold text-xl text-slate-900">Tulis Berita / Publikasi Baru</h3>
+                <button onclick="closeModal('news-form-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form onsubmit="handleSaveNews(event)" class="space-y-4">
+                <input type="hidden" id="news-edit-id">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Judul Berita / Artikel</label>
+                    <input type="text" id="news-input-title" required placeholder="Masukkan judul publikasi..." class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                </div>
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Kategori</label>
+                        <select id="news-input-category" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                            <option value="Kegiatan">Kegiatan</option>
+                            <option value="Kajian">Kajian</option>
+                            <option value="Opini">Opini</option>
+                            <option value="Pengumuman">Pengumuman</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Nama Penulis / Bidang</label>
+                        <input type="text" id="news-input-author" required placeholder="Contoh: Bidang Kajian Strategis" class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Isi Artikel Lengkap</label>
+                    <textarea id="news-input-content" rows="6" required placeholder="Tuliskan isi berita atau kajian secara lengkap..." class="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-hppmi-600 focus:outline-none"></textarea>
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('news-form-modal')" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100">Batal</button>
+                    <button type="submit" class="bg-hppmi-700 hover:bg-hppmi-800 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm">Terbitkan Publikasi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         REAL-TIME CLOUD DATABASE & APPLICATION LOGIC
+    ====================================================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- SEED DATA AUTENTIK HPPMI MAROS ---
+        const DEFAULT_NEWS = [
+            {
+                id: "seed-news-1",
+                createdAt: 1732000003000,
+                title: "Peresmian Sekretariat Pimpinan Pusat HPPMI Maros: Rumah Pergerakan & Intelektual Pemuda",
+                category: "Kegiatan",
+                author: "Bidang Kesekretariatan & Humas",
+                date: "11 November 2025",
+                image: "https://placehold.co/600x400/064e3b/fbbf24?text=Peresmian+Sekretariat+PP+HPPMI+Maros",
+                excerpt: "Bupati Maros bersama jajaran alumni dan pengurus meresmikan Sekretariat HPPMI Maros sebagai pusat konsolidasi gagasan kader lintas generasi.",
+                content: "MAROS — Pimpinan Pusat Himpunan Pemuda Pelajar Mahasiswa Indonesia (PP HPPMI) Maros menggelar peresmian Sekretariat HPPMI Maros yang dihadiri langsung oleh Bupati Maros, jajaran senior alumni, serta perwakilan 23 komisariat.\n\nDalam sambutannya, Bupati Maros mengisahkan perjalanan berproses di organisasi kepemudaan yang menempa karakter kepemimpinan dan kepekaan sosial.\n\nSekretariat ini diharapkan menjadi ruang dialektika intelektual, pusat literasi, dan rumah bersama bagi seluruh pelajar serta mahasiswa asal Kabupaten Maros."
+            },
+            {
+                id: "seed-news-2",
+                createdAt: 1732000002000,
+                title: "Basic Analysis Camp (BAC) & Latihan Kader I: Mencetak Kader Kritis dan Berkarakter Ke-Maros-an",
+                category: "Kajian",
+                author: "Bidang Kaderisasi PP HPPMI Maros",
+                date: "14 September 2026",
+                image: "https://placehold.co/600x400/065f46/fbbf24?text=Basic+Analysis+Camp+HPPMI+Maros",
+                excerpt: "Komisariat Pelajar dan Komisariat Perguruan Tinggi bersinergi melaksanakan pengkaderan dasar guna menanamkan nilai Sipakatau, Sipakalebbi, dan Sipakainge.",
+                content: "MAROS — Pengkaderan merupakan jantung organisasi HPPMI Maros. Melalui kegiatan Basic Analysis Camp (BAC) dan Latihan Kader I (LK I), calon kader dibekali materi sejarah berdirinya HPPMI Maros sejak tahun 1963, analisis sosial, hingga manajemen organisasi.\n\nPara peserta diajak melakukan napak tilas kiprah para pendiri dan senior HPPMI Maros yang telah berkontribusi besar dalam pembangunan Butta Salewangang."
+            },
+            {
+                id: "seed-news-3",
+                createdAt: 1732000001000,
+                title: "Kajian Lingkungan & Ekowisata: Mengawal Keberlanjutan UNESCO Global Geopark Maros-Pangkep",
+                category: "Opini",
+                author: "Bidang Lingkungan Hidup & Pariwisata",
+                date: "02 November 2026",
+                image: "https://placehold.co/600x400/047857/ffffff?text=Kajian+Geopark+Maros+Pangkep",
+                excerpt: "HPPMI Maros mendorong pemberdayaan kelompok sadar wisata lokal dan konservasi kawasan karst Maros agar selaras dengan kesejahteraan masyarakat.",
+                content: "Penetapan kawasan karst Maros-Pangkep sebagai bagian dari UNESCO Global Geopark membawa tanggung jawab besar bagi seluruh elemen masyarakat, termasuk mahasiswa dan pemuda Maros.\n\nMelalui forum FGD dan kajian strategis, PP HPPMI Maros merumuskan rekomendasi penguatan ekowisata berbasis komunitas serta perlindungan situs prasejarah dan ekosistem karst dari eksploitasi yang merusak lingkungan."
+            }
+        ];
+
+        const DEFAULT_AGENDAS = [
+            {
+                id: "seed-agenda-1",
+                title: "Basic Analysis Camp (BAC) & Latihan Kader I (LK I)",
+                date: "2026-12-12",
+                status: "Pendaftaran Dibuka",
+                location: "Sekretariat PP HPPMI Maros, Jl. Cempaka No. 89",
+                desc: "Pengkaderan dasar wajib bagi calon anggota baru untuk mengenal sejarah, nilai-nilai perjuangan, dan arah gerak HPPMI Maros."
+            },
+            {
+                id: "seed-agenda-2",
+                title: "Rapat Kerja & Konsolidasi 23 Komisariat HPPMI Maros",
+                date: "2026-12-20",
+                status: "Akan Datang",
+                location: "Gedung Serbaguna Kabupaten Maros",
+                desc: "Penyelarasan program kerja 10 bidang bersama seluruh pengurus komisariat perguruan tinggi, kecamatan, pelajar, dan lembaga otonom."
+            }
+        ];
+
+        const DEFAULT_LEADERSHIP = [
+            { id: "seed-lead-1", order: 1, name: "Muh. Akmal Hidayat, S.H.", role: "Ketua Umum PP HPPMI Maros", campus: "Komisariat Unhas" },
+            { id: "seed-lead-2", order: 2, name: "Nurul Fadilah Rahman, S.Pd.", role: "Sekretaris Jenderal", campus: "Komisariat UNM" },
+            { id: "seed-lead-3", order: 3, name: "Andi Rizky Pratama, S.E.", role: "Bendahara Umum", campus: "Komisariat UMI" },
+            { id: "seed-lead-4", order: 4, name: "Siti Rahmawati, S.Sos.", role: "Ketua Bidang Kaderisasi & SDM", campus: "Komisariat UINAM" }
+        ];
+
+        const KOMISARIAT_DIRECTORY = [
+            { name: "Komisariat Unhas", type: "Kampus", sub: "Universitas Hasanuddin" },
+            { name: "Komisariat UNM", type: "Kampus", sub: "Universitas Negeri Makassar" },
+            { name: "Komisariat UINAM", type: "Kampus", sub: "UIN Alauddin Makassar" },
+            { name: "Komisariat UMI", type: "Kampus", sub: "Universitas Muslim Indonesia" },
+            { name: "Komisariat Unismuh", type: "Kampus", sub: "Univ. Muhammadiyah Makassar" },
+            { name: "Komisariat UIM", type: "Kampus", sub: "Universitas Islam Makassar" },
+            { name: "Komisariat PNUP", type: "Kampus", sub: "Politeknik Negeri Ujung Pandang" },
+            { name: "Komisariat Unibos", type: "Kampus", sub: "Universitas Bosowa" },
+            { name: "Komisariat Yapim / STAI", type: "Kampus", sub: "Perguruan Tinggi Maros" },
+            { name: "Komisariat Turikale", type: "Kecamatan", sub: "Kec. Turikale, Kab. Maros" },
+            { name: "Komisariat Mandai", type: "Kecamatan", sub: "Kec. Mandai, Kab. Maros" },
+            { name: "Komisariat Marusu", type: "Kecamatan", sub: "Kec. Marusu, Kab. Maros" },
+            { name: "Komisariat Bontoa", type: "Kecamatan", sub: "Kec. Bontoa, Kab. Maros" },
+            { name: "Komisariat Lau", type: "Kecamatan", sub: "Kec. Lau, Kab. Maros" },
+            { name: "Komisariat Maros Baru", type: "Kecamatan", sub: "Kec. Maros Baru, Kab. Maros" },
+            { name: "Komisariat Tanralili", type: "Kecamatan", sub: "Kec. Tanralili, Kab. Maros" },
+            { name: "Komisariat Tompobulu", type: "Kecamatan", sub: "Kec. Tompobulu, Kab. Maros" },
+            { name: "Komisariat Moncongloe", type: "Kecamatan", sub: "Kec. Moncongloe, Kab. Maros" },
+            { name: "Komisariat Simbang", type: "Kecamatan", sub: "Kec. Simbang, Kab. Maros" },
+            { name: "Komisariat Bantimurung", type: "Kecamatan", sub: "Kec. Bantimurung, Kab. Maros" },
+            { name: "Komisariat Cenrana & Camba", type: "Kecamatan", sub: "Wilayah Timur Kab. Maros" },
+            { name: "Komisariat Pelajar", type: "Khusus", sub: "Pelajar SMA/SMK/MA Kab. Maros" },
+            { name: "Lembaga Otonom", type: "Khusus", sub: "Badan Khusus & Otonom Kader" }
+        ];
+
+        const appState = {
+            news: [...DEFAULT_NEWS],
+            agendas: [...DEFAULT_AGENDAS],
+            leadership: [...DEFAULT_LEADERSHIP],
+            applicants: [],
+            komisariatFilter: "ALL"
+        };
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'hppmi-maros-portal';
+
+        // --- INITIALIZE CLOUD STORAGE & REAL-TIME LISTENERS ---
+        async function initRealtimeDatabase() {
+            try {
+                if (typeof __firebase_config === 'undefined') {
+                    throw new Error("Konfigurasi cloud tidak ditemukan, menggunakan mode lokal.");
+                }
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Wajib Auth sebelum query Firestore
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                currentUser = auth.currentUser;
+                if (!currentUser) return;
+
+                setupRealtimeListeners();
+            } catch (error) {
+                console.warn("Fallback ke data default:", error);
+                appState.news = [...DEFAULT_NEWS];
+                appState.agendas = [...DEFAULT_AGENDAS];
+                appState.leadership = [...DEFAULT_LEADERSHIP];
+                renderAllPublic();
+                updateAdminUI();
+            }
+        }
+
+        function setupRealtimeListeners() {
+            if (!db || !currentUser) return;
+
+            // 1. Real-time Listener Berita
+            const newsCol = collection(db, 'artifacts', appId, 'public', 'data', 'news');
+            onSnapshot(newsCol, async (snapshot) => {
+                if (snapshot.empty) {
+                    // Seed data awal jika database masih kosong
+                    for (const item of DEFAULT_NEWS) {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'news', item.id), item);
+                    }
+                    return;
+                }
+                const list = [];
+                snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                appState.news = list;
+                renderPublicNews();
+                updateAdminUI();
+            }, (err) => console.error("Error sync berita:", err));
+
+            // 2. Real-time Listener Agenda
+            const agendaCol = collection(db, 'artifacts', appId, 'public', 'data', 'agendas');
+            onSnapshot(agendaCol, async (snapshot) => {
+                if (snapshot.empty) {
+                    for (const item of DEFAULT_AGENDAS) {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'agendas', item.id), item);
+                    }
+                    return;
+                }
+                const list = [];
+                snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                list.sort((a, b) => new Date(a.date) - new Date(b.date));
+                appState.agendas = list;
+                renderPublicAgendas();
+                updateAdminUI();
+            }, (err) => console.error("Error sync agenda:", err));
+
+            // 3. Real-time Listener Struktur Pengurus
+            const leadCol = collection(db, 'artifacts', appId, 'public', 'data', 'leadership');
+            onSnapshot(leadCol, async (snapshot) => {
+                if (snapshot.empty) {
+                    for (const item of DEFAULT_LEADERSHIP) {
+                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'leadership', item.id), item);
+                    }
+                    return;
+                }
+                const list = [];
+                snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                list.sort((a, b) => (a.order || 99) - (b.order || 99));
+                appState.leadership = list;
+                renderPublicLeadership();
+                updateAdminUI();
+            }, (err) => console.error("Error sync pengurus:", err));
+
+            // 4. Real-time Listener Pendaftar Kader Baru
+            const applicantsCol = collection(db, 'artifacts', appId, 'public', 'data', 'applicants');
+            onSnapshot(applicantsCol, (snapshot) => {
+                const list = [];
+                snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
+                list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                appState.applicants = list;
+                updateAdminUI();
+            }, (err) => console.error("Error sync pendaftar:", err));
+        }
+
+        // --- TOAST NOTIFICATION HELPER ---
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgColor = type === 'error' ? 'bg-red-600' : 'bg-hppmi-800';
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2.5 transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto border border-white/10`;
+            toast.innerHTML = `
+                <i data-lucide="${type === 'error' ? 'alert-circle' : 'check-circle-2'}" class="w-4 h-4 text-gold-400 shrink-0"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        };
+
+        // --- MOBILE MENU & MODALS ---
+        window.toggleMobileMenu = function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        };
+
+        window.openModal = function(id) {
+            document.getElementById(id).classList.remove('hidden');
+            lucide.createIcons();
+        };
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.add('hidden');
+        };
+
+        window.openAdminLogin = function() {
+            openModal('admin-login-modal');
+        };
+
+        window.openJoinModal = function() {
+            openModal('join-modal');
+        };
+
+        // --- PUBLIC RENDERING FUNCTIONS ---
+        window.renderPublicNews = function() {
+            const grid = document.getElementById('public-news-grid');
+            const searchQuery = document.getElementById('news-search').value.toLowerCase();
+            const catFilter = document.getElementById('news-category-filter').value;
+
+            const filtered = appState.news.filter(item => {
+                const matchCat = catFilter === 'ALL' || item.category === catFilter;
+                const matchSearch = item.title.toLowerCase().includes(searchQuery) || item.excerpt.toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-slate-200">
+                        <p class="text-slate-500 font-medium">Tidak ada berita atau kajian yang sesuai dengan pencarian Anda.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(article => `
+                <article class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col group">
+                    <div class="relative h-48 bg-slate-200 overflow-hidden">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute top-3 left-3 bg-hppmi-800/90 backdrop-blur-sm text-gold-400 text-xs font-bold px-3 py-1 rounded-lg">
+                            ${article.category}
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center gap-3 text-xs text-slate-400 mb-2.5">
+                            <span>${article.date}</span>
+                            <span>•</span>
+                            <span class="truncate">${article.author}</span>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 leading-snug mb-2.5 group-hover:text-hppmi-700 transition line-clamp-2">
+                            ${article.title}
+                        </h3>
+                        <p class="text-slate-600 text-sm line-clamp-3 mb-5 flex-1">
+                            ${article.excerpt}
+                        </p>
+                        <button onclick="openArticleReader('${article.id}')" class="inline-flex items-center gap-1.5 text-sm font-bold text-hppmi-700 hover:text-hppmi-800 mt-auto">
+                            Baca Selengkapnya
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+            lucide.createIcons();
+        };
+
+        window.openArticleReader = function(id) {
+            const article = appState.news.find(n => n.id === id);
+            if (!article) return;
+
+            document.getElementById('modal-article-img').src = article.image;
+            document.getElementById('modal-article-cat').textContent = article.category;
+            document.getElementById('modal-article-date').innerHTML = `<i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${article.date}`;
+            document.getElementById('modal-article-author').innerHTML = `<i data-lucide="user" class="w-3.5 h-3.5"></i> ${article.author}`;
+            document.getElementById('modal-article-title').textContent = article.title;
+            document.getElementById('modal-article-body').textContent = article.content;
+
+            openModal('article-modal');
+        };
+
+        window.renderPublicAgendas = function() {
+            const list = document.getElementById('public-agenda-list');
+            list.innerHTML = appState.agendas.map(item => `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start hover:border-hppmi-500 transition">
+                    <div class="bg-hppmi-800 text-white rounded-xl px-4 py-3 text-center shrink-0 min-w-[95px]">
+                        <span class="text-xs uppercase text-gold-400 font-bold block">${new Date(item.date).toLocaleDateString('id-ID', { month: 'short' })}</span>
+                        <span class="font-heading text-2xl font-extrabold block leading-tight">${new Date(item.date).getDate()}</span>
+                        <span class="text-[11px] text-hppmi-200">${new Date(item.date).getFullYear()}</span>
+                    </div>
+                    <div class="space-y-2 flex-1">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">${item.status}</span>
+                            <span class="text-xs text-slate-500 flex items-center gap-1">
+                                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-hppmi-600"></i>
+                                ${item.location}
+                            </span>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900">${item.title}</h3>
+                        <p class="text-sm text-slate-600">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        };
+
+        window.renderPublicLeadership = function() {
+            const grid = document.getElementById('public-leadership-grid');
+            grid.innerHTML = appState.leadership.map(person => `
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-br from-hppmi-700 to-hppmi-900 text-gold-400 font-heading font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border-4 border-hppmi-50">
+                        ${person.name.split(' ').slice(0, 2).map(n => n[0]).join('')}
+                    </div>
+                    <h3 class="font-heading font-bold text-base text-slate-900">${person.name}</h3>
+                    <p class="text-xs font-bold text-hppmi-700 mt-1">${person.role}</p>
+                    <p class="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-100">${person.campus}</p>
+                </div>
+            `).join('');
+        };
+
+        window.filterKomisariat = function(type) {
+            appState.komisariatFilter = type;
+            document.querySelectorAll('.kom-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-gold-500', 'text-slate-950', 'font-bold');
+                btn.classList.add('bg-hppmi-800', 'text-hppmi-100', 'font-semibold');
+            });
+            const active = document.getElementById(`kom-filter-${type}`);
+            if (active) {
+                active.classList.add('bg-gold-500', 'text-slate-950', 'font-bold');
+                active.classList.remove('bg-hppmi-800', 'text-hppmi-100', 'font-semibold');
+            }
+            renderPublicKomisariat();
+        };
+
+        window.renderPublicKomisariat = function() {
+            const grid = document.getElementById('public-komisariat-grid');
+            const filtered = appState.komisariatFilter === 'ALL'
+                ? KOMISARIAT_DIRECTORY
+                : KOMISARIAT_DIRECTORY.filter(k => k.type === appState.komisariatFilter);
+
+            grid.innerHTML = filtered.map(k => `
+                <div class="bg-white/10 border border-white/15 rounded-xl p-4 flex items-center gap-3 hover:bg-white/15 transition">
+                    <div class="w-9 h-9 rounded-lg bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+                        <i data-lucide="${k.type === 'Kampus' ? 'graduation-cap' : k.type === 'Kecamatan' ? 'map-pin' : 'users'}" class="w-5 h-5"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h4 class="font-heading font-bold text-sm text-white truncate">${k.name}</h4>
+                        <p class="text-xs text-hppmi-200 truncate">${k.sub}</p>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        };
+
+        // --- CADRE REGISTRATION HANDLER (REAL-TIME PERSISTENT) ---
+        window.handleJoinSubmit = async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('join-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Menyimpan ke Database...';
+
+            const newApplicant = {
+                createdAt: Date.now(),
+                name: document.getElementById('join-name').value.trim(),
+                campus: document.getElementById('join-campus').value.trim(),
+                district: document.getElementById('join-district').value,
+                komisariat: document.getElementById('join-komisariat').value,
+                phone: document.getElementById('join-phone').value.trim(),
+                motivation: document.getElementById('join-motivation').value.trim(),
+                status: 'Menunggu'
+            };
+
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'applicants'), newApplicant);
+                } else {
+                    appState.applicants.unshift({ id: String(Date.now()), ...newApplicant });
+                    updateAdminUI();
+                }
+
+                // Format pesan konfirmasi otomatis ke WhatsApp Sekretariat PP HPPMI Maros
+                const adminWaNumber = "6285256583248";
+                const waText = `Assalamu'alaikum Wr. Wb. Pengurus PP HPPMI Maros.\n\nSaya telah mendaftar sebagai Calon Kader Baru melalui Website Resmi HPPMI Maros dengan data berikut:\n\n• *Nama:* ${newApplicant.name}\n• *Kampus/Sekolah:* ${newApplicant.campus}\n• *Kecamatan Asal:* ${newApplicant.district}\n• *Komisariat Tujuan:* ${newApplicant.komisariat}\n• *No. WhatsApp:* ${newApplicant.phone}\n• *Motivasi:* ${newApplicant.motivation}\n\nMohon informasi jadwal pelaksanaan Basic Analysis Camp (BAC) / Latihan Kader I (LK I). Terima kasih.`;
+                const waUrl = `https://wa.me/${adminWaNumber}?text=${encodeURIComponent(waText)}`;
+
+                e.target.reset();
+                closeModal('join-modal');
+                showToast('Data tersimpan permanen! Membuka WhatsApp untuk konfirmasi langsung...');
+
+                setTimeout(() => {
+                    window.open(waUrl, '_blank', 'noopener,noreferrer');
+                }, 600);
+            } catch (err) {
+                console.error("Gagal simpan pendaftaran:", err);
+                showToast('Terjadi kesalahan saat menyimpan pendaftaran.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i data-lucide="database" class="w-4 h-4"></i> Simpan ke Database &amp; Konfirmasi WhatsApp`;
+                lucide.createIcons();
+            }
+        };
+
+        // Helper untuk memformat nomor HP lokal (08...) menjadi format internasional WhatsApp (628...)
+        window.formatWhatsAppNumber = function(phone) {
+            let cleaned = (phone || '').replace(/\D/g, '');
+            if (cleaned.startsWith('0')) {
+                cleaned = '62' + cleaned.slice(1);
+            } else if (cleaned.startsWith('8')) {
+                cleaned = '62' + cleaned;
+            }
+            return cleaned;
+        };
+
+        // Respon langsung dari Admin Panel ke WhatsApp Pendaftar Kader
+        window.replyApplicantWhatsApp = function(id) {
+            const applicant = appState.applicants.find(a => a.id === id);
+            if (!applicant) return;
+
+            const targetPhone = formatWhatsAppNumber(applicant.phone);
+            const replyMessage = `Assalamu'alaikum Wr. Wb. Saudara/i *${applicant.name}*.\n\nKami dari *Pimpinan Pusat HPPMI Maros* telah menerima data pendaftaran kader baru Anda untuk *${applicant.komisariat}* (Asal ${applicant.campus}).\n\nStatus berkas Anda saat ini: *${applicant.status}*.\nSilakan bergabung ke grup koordinasi peserta Basic Analysis Camp (BAC) / LK I HPPMI Maros. Sipakatau, Sipakalebbi, Sipakainge!`;
+            const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(replyMessage)}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        };
+
+        // --- ADMIN PANEL LOGIC ---
+        window.handleAdminLogin = function(e) {
+            e.preventDefault();
+            const user = document.getElementById('login-username').value;
+            const pass = document.getElementById('login-password').value;
+
+            if (user === 'admin' && pass === 'hppmi1963') {
+                closeModal('admin-login-modal');
+                document.getElementById('public-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+                updateAdminUI();
+                showToast('Selamat datang di Admin Panel Real-Time HPPMI Maros!');
+            } else {
+                showToast('Username atau kata sandi salah!', 'error');
+            }
+        };
+
+        window.exitAdminPanel = function() {
+            document.getElementById('admin-view').classList.add('hidden');
+            document.getElementById('public-view').classList.remove('hidden');
+            renderAllPublic();
+        };
+
+        window.switchAdminTab = function(tabName) {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-hppmi-700', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('bg-hppmi-700', 'text-white');
+            activeBtn.classList.remove('text-slate-400');
+
+            const titles = {
+                dashboard: 'Dashboard Ikhtisar',
+                news: 'Kelola Berita & Opini',
+                agenda: 'Kelola Agenda Kegiatan',
+                members: 'Verifikasi Pendaftar Kader Baru',
+                leadership: 'Struktur Pengurus Pusat'
+            };
+            document.getElementById('admin-page-title').textContent = titles[tabName];
+            lucide.createIcons();
+        };
+
+        window.updateAdminUI = function() {
+            document.getElementById('dash-total-news').textContent = appState.news.length;
+            document.getElementById('dash-total-agenda').textContent = appState.agendas.length;
+            const pendingCount = appState.applicants.filter(a => a.status === 'Menunggu').length;
+            document.getElementById('dash-total-applicants').textContent = pendingCount;
+            document.getElementById('badge-pending-members').textContent = pendingCount;
+            document.getElementById('dash-total-leaders').textContent = appState.leadership.length;
+
+            // Render Admin News Table
+            const newsTable = document.getElementById('admin-news-table');
+            newsTable.innerHTML = appState.news.map(item => `
+                <tr class="hover:bg-slate-50">
+                    <td class="py-3.5 px-5 font-semibold text-slate-900 max-w-xs truncate">${item.title}</td>
+                    <td class="py-3.5 px-5"><span class="bg-hppmi-50 text-hppmi-700 text-xs font-bold px-2.5 py-1 rounded-md">${item.category}</span></td>
+                    <td class="py-3.5 px-5 text-slate-600">${item.author}</td>
+                    <td class="py-3.5 px-5 text-slate-500 text-xs">${item.date}</td>
+                    <td class="py-3.5 px-5 text-right space-x-1">
+                        <button onclick="openNewsFormModal('${item.id}')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg" title="Edit">
+                            <i data-lucide="edit-3" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="deleteNews('${item.id}')" class="p-1.5 text-red-600 hover:bg-red-50 rounded-lg" title="Hapus">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Render Admin Agenda List
+            const agendaList = document.getElementById('admin-agenda-list');
+            agendaList.innerHTML = appState.agendas.map(ag => `
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-start gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-hppmi-700">${ag.date} • ${ag.status}</span>
+                        <h4 class="font-heading font-bold text-slate-900 mt-0.5">${ag.title}</h4>
+                        <p class="text-xs text-slate-500 mt-1">${ag.location}</p>
+                    </div>
+                    <button onclick="deleteAgenda('${ag.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg shrink-0">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            // Render Admin Members Table
+            const membersTable = document.getElementById('admin-members-table');
+            if (appState.applicants.length === 0) {
+                membersTable.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">Belum ada pendaftar kader baru yang masuk.</td></tr>`;
+            } else {
+                membersTable.innerHTML = appState.applicants.map(m => `
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-3.5 px-5 font-semibold text-slate-900">${m.name}</td>
+                        <td class="py-3.5 px-5 text-slate-600">${m.campus}</td>
+                        <td class="py-3.5 px-5 text-slate-600">
+                            <span class="font-medium text-slate-800 block">${m.district}</span>
+                            <span class="text-xs text-hppmi-700">${m.komisariat || 'Komisariat Umum'}</span>
+                        </td>
+                        <td class="py-3.5 px-5 text-slate-600">${m.phone}</td>
+                        <td class="py-3.5 px-5">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${m.status === 'Diterima' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                                ${m.status}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-5 text-right space-x-1">
+                            <button onclick="replyApplicantWhatsApp('${m.id}')" class="inline-flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg" title="Respon langsung ke WhatsApp pendaftar">
+                                <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                WA
+                            </button>
+                            ${m.status === 'Menunggu' ? `
+                                <button onclick="approveApplicant('${m.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
+                                    Terima
+                                </button>
+                            ` : ''}
+                            <button onclick="deleteApplicant('${m.id}')" class="p-1.5 text-red-600 hover:bg-red-50 rounded-lg">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // Render Admin Leadership List
+            const leaderList = document.getElementById('admin-leadership-list');
+            leaderList.innerHTML = appState.leadership.map(l => `
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-3">
+                    <div>
+                        <h4 class="font-heading font-bold text-sm text-slate-900">${l.name}</h4>
+                        <p class="text-xs font-semibold text-hppmi-700">${l.role}</p>
+                        <p class="text-[11px] text-slate-500">${l.campus}</p>
+                    </div>
+                    <button onclick="deleteLeader('${l.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        };
+
+        // --- REAL-TIME CRUD OPERATIONS IN ADMIN ---
+        window.openNewsFormModal = function(editId = null) {
+            const modalTitle = document.getElementById('news-form-modal-title');
+            if (editId) {
+                const article = appState.news.find(n => n.id === editId);
+                if (!article) return;
+                modalTitle.textContent = 'Edit Publikasi Berita';
+                document.getElementById('news-edit-id').value = article.id;
+                document.getElementById('news-input-title').value = article.title;
+                document.getElementById('news-input-category').value = article.category;
+                document.getElementById('news-input-author').value = article.author;
+                document.getElementById('news-input-content').value = article.content;
+            } else {
+                modalTitle.textContent = 'Tulis Berita / Publikasi Baru';
+                document.getElementById('news-edit-id').value = '';
+                document.getElementById('news-input-title').value = '';
+                document.getElementById('news-input-category').value = 'Kegiatan';
+                document.getElementById('news-input-author').value = 'Bidang Riset & Humas PP HPPMI Maros';
+                document.getElementById('news-input-content').value = '';
+            }
+            openModal('news-form-modal');
+        };
+
+        window.handleSaveNews = async function(e) {
+            e.preventDefault();
+            const editId = document.getElementById('news-edit-id').value;
+            const title = document.getElementById('news-input-title').value;
+            const category = document.getElementById('news-input-category').value;
+            const author = document.getElementById('news-input-author').value;
+            const content = document.getElementById('news-input-content').value;
+            const excerpt = content.substring(0, 145) + '...';
+
+            try {
+                if (editId) {
+                    if (db && currentUser) {
+                        await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'news', editId), {
+                            title, category, author, content, excerpt
+                        });
+                    }
+                    showToast('Berita berhasil diperbarui secara real-time!');
+                } else {
+                    const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+                    const newArticle = {
+                        createdAt: Date.now(),
+                        title,
+                        category,
+                        author,
+                        date: today,
+                        image: `https://placehold.co/600x400/065f46/fbbf24?text=${encodeURIComponent(category + ' HPPMI Maros')}`,
+                        excerpt,
+                        content
+                    };
+                    if (db && currentUser) {
+                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'news'), newArticle);
+                    }
+                    showToast('Berita baru berhasil diterbitkan secara permanen!');
+                }
+                closeModal('news-form-modal');
+            } catch (err) {
+                console.error("Gagal menyimpan berita:", err);
+                showToast('Gagal menyimpan berita ke server.', 'error');
+            }
+        };
+
+        window.deleteNews = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'news', id));
+                }
+                showToast('Berita telah dihapus permanen.');
+            } catch (err) {
+                showToast('Gagal menghapus berita.', 'error');
+            }
+        };
+
+        window.handleAddAgenda = async function(e) {
+            e.preventDefault();
+            const newAgenda = {
+                title: document.getElementById('agenda-title').value,
+                date: document.getElementById('agenda-date').value,
+                status: document.getElementById('agenda-status').value,
+                location: document.getElementById('agenda-location').value,
+                desc: document.getElementById('agenda-desc').value
+            };
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'agendas'), newAgenda);
+                }
+                e.target.reset();
+                showToast('Agenda kegiatan berhasil disimpan permanen!');
+            } catch (err) {
+                showToast('Gagal menyimpan agenda.', 'error');
+            }
+        };
+
+        window.deleteAgenda = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'agendas', id));
+                }
+                showToast('Agenda kegiatan dihapus.');
+            } catch (err) {
+                showToast('Gagal menghapus agenda.', 'error');
+            }
+        };
+
+        window.approveApplicant = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'applicants', id), {
+                        status: 'Diterima'
+                    });
+                }
+                showToast('Status kader diperbarui menjadi Diterima!');
+            } catch (err) {
+                showToast('Gagal memperbarui status.', 'error');
+            }
+        };
+
+        window.deleteApplicant = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'applicants', id));
+                }
+                showToast('Data pendaftar dihapus.');
+            } catch (err) {
+                showToast('Gagal menghapus pendaftar.', 'error');
+            }
+        };
+
+        window.handleAddLeader = async function(e) {
+            e.preventDefault();
+            const newLeader = {
+                order: appState.leadership.length + 1,
+                name: document.getElementById('leader-name').value,
+                role: document.getElementById('leader-role').value,
+                campus: document.getElementById('leader-campus').value
+            };
+            try {
+                if (db && currentUser) {
+                    await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'leadership'), newLeader);
+                }
+                e.target.reset();
+                showToast('Pengurus baru ditambahkan secara permanen!');
+            } catch (err) {
+                showToast('Gagal menambahkan pengurus.', 'error');
+            }
+        };
+
+        window.deleteLeader = async function(id) {
+            try {
+                if (db && currentUser) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'leadership', id));
+                }
+                showToast('Pengurus dihapus dari struktur.');
+            } catch (err) {
+                showToast('Gagal menghapus pengurus.', 'error');
+            }
+        };
+
+        window.renderAllPublic = function() {
+            renderPublicNews();
+            renderPublicAgendas();
+            renderPublicLeadership();
+            renderPublicKomisariat();
+            lucide.createIcons();
+        };
+
+        // Initialize App & Real-time Database on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPublicKomisariat();
+            lucide.createIcons();
+            initRealtimeDatabase();
+        });
+    </script>
+</body>
+</html>
